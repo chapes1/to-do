@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
   renderizarTarefas(tarefas);
 });
 document.getElementById('formulario').addEventListener('submit', function(event) {
-    event.preventDefault();
-    let titulo = document.getElementById('titulo').value;
-    adicionarTarefa(titulo);
+  event.preventDefault();
+  let titulo = document.getElementById('titulo').value;
+  adicionarTarefa(titulo);
 });
 function salvarTarefas(tarefas) {
   localStorage.setItem("tarefas", JSON.stringify(tarefas));
@@ -23,7 +23,7 @@ function adicionarTarefa(titulo) {
 
   tarefas.push(novaTarefa);
   salvarTarefas(tarefas);
-  window.location.reload();
+  renderizarTarefas(tarefas);
 }
 function concluirTarefa(id) {
   tarefas = tarefas.map(tarefa => {
@@ -33,12 +33,12 @@ function concluirTarefa(id) {
   });
 
   salvarTarefas(tarefas);
-  window.location.reload();
+  renderizarTarefas(tarefas);
 }
 function removerTarefa(id) {
   tarefas = tarefas.filter(tarefa => tarefa.id !== id);
   salvarTarefas(tarefas);
-  window.location.reload();
+  renderizarTarefas(tarefas);
 }
 function renderizarTarefas(){
   const lista = document.getElementById("lista-tarefas");
@@ -59,7 +59,9 @@ function renderizarTarefas(){
           ${tarefa.concluida ? "checked" : ""}
           onchange="concluirTarefa(${tarefa.id})"
         />
-        <span>${tarefa.titulo}</span>
+        <span 
+        ${tarefa.concluida ? "class='concluida'" : ""}
+        >${tarefa.titulo}</span>
       </label>
 
       <button onclick="removerTarefa(${tarefa.id})">Excluir</button>
