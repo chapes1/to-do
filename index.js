@@ -5,8 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById('formulario').addEventListener('submit', function(event) {
   event.preventDefault();
   let titulo = document.getElementById('titulo').value;
-  adicionarTarefa(titulo);
+  if(verificacaoTarefa(titulo)) // se não houver erro
+    adicionarTarefa(titulo);
 });
+
 function salvarTarefas(tarefas) {
   localStorage.setItem("tarefas", JSON.stringify(tarefas));
 }
@@ -25,6 +27,11 @@ function adicionarTarefa(titulo) {
   salvarTarefas(tarefas);
   renderizarTarefas(tarefas);
 }
+function removerTarefa(id) {
+  tarefas = tarefas.filter(tarefa => tarefa.id !== id);
+  salvarTarefas(tarefas);
+  renderizarTarefas(tarefas);
+}
 function concluirTarefa(id) {
   tarefas = tarefas.map(tarefa => {
     if (tarefa.id === id)
@@ -35,11 +42,7 @@ function concluirTarefa(id) {
   salvarTarefas(tarefas);
   renderizarTarefas(tarefas);
 }
-function removerTarefa(id) {
-  tarefas = tarefas.filter(tarefa => tarefa.id !== id);
-  salvarTarefas(tarefas);
-  renderizarTarefas(tarefas);
-}
+
 function renderizarTarefas(){
   const lista = document.getElementById("lista-tarefas");
   lista.innerHTML = ""; // limpa antes de renderizar
@@ -70,4 +73,21 @@ function renderizarTarefas(){
     lista.appendChild(li);
   });
     
+}
+function verificacaoTarefa(tarefa){
+  if(tarefa==''){
+    MensagemErro('Tarefa em branco, coloque um nome para a tarefa')
+    return false
+  }
+  tarefas = carregarTarefas()
+  if(tarefas.filter(tarefas => tarefas.titulo == tarefa).length > 0){
+    MensagemErro('Tarefa já existe, escolha outro nome!')
+    return false;
+  }
+  MensagemErro('')
+  return true
+}
+
+function MensagemErro(mensagem){
+  document.getElementById('mensagem').innerText = mensagem;
 }
