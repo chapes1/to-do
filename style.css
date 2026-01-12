@@ -1,3 +1,91 @@
-.concluida{
-    text-decoration: line-through;
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: helvetica;
+}
+:root{
+    --background: #0D1117;
+    --secondBackground: #4d84d1;
+    --text: #E6EDF3;
+    --secondText: #8B949E;
+    --azul: #1F6FEB;
+    --azul-claro: #3ba0f3;
+}
+body{
+    background-color: var(--background);
+    color: var(--text);
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 120px auto 0 auto;
+    max-width: 500px;
+}
+.status-container{
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--azul);
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    width: 100%;
+}
+.detalhes{
+    width: 100%;
+}
+#barraProgresso{
+    width: 100%;
+    height: 10px;
+    background-color: var(--secondBackground);
+    border-radius: 5px;
+    margin-top: 20px;
+}
+#progresso{
+    width: 80%;
+    height: 10px;
+    background-color: var(--azul-claro);
+    border-radius: 10px;
+    transition: all  0.3s ease;
+}
+#numeros{
+    width: 100px;
+    height: 100px;
+    background: var(--azul);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 30px;
+    font-weight: bold;
+}
+form{
+    margin-top: 60px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+input{
+    flex: 1;
+    padding: 16px;
+    background-color: var(--background);
+    border: 1px solid var(--azul);
+    border-radius: 10px;
+    outline: none;
+    color: var(--text);
+}
+.container form button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--azul);
+    border: none;
+    color: var(--text);
+    font-size: 30px;
+    font-weight: bold;
 }

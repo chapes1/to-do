@@ -1,32 +1,57 @@
-document.addEventListener("DOMContentLoaded", () => {
-  tarefas = carregarTarefas()
+document.addEventListener('DOMContentLoaded', function() {
+  tarefas = carregarTarefas();
   renderizarTarefas(tarefas);
 });
-document.getElementById('formulario').addEventListener('submit', function(event) {
-  event.preventDefault();
-  let titulo = document.getElementById('titulo').value;
-  if(verificacaoTarefa(titulo)) // se não houver erro
-    adicionarTarefa(titulo);
+document.addEventListener('submit',function (event){
+  event.preventDefault(); 
+  let tarefa = document.getElementById('tarefa').value;
+  adicionarTarefa(tarefa);
 });
+function carregarTarefas(){
+  tarefas = JSON.parse(localStorage.getItem('tarefas'));
+  return tarefas;
+}
 
 function salvarTarefas(tarefas) {
   localStorage.setItem("tarefas", JSON.stringify(tarefas));
 }
-function carregarTarefas() {
-  const dados = localStorage.getItem("tarefas");
-  return dados ? JSON.parse(dados) : [];
-}
-function adicionarTarefa(titulo) {
+function adicionarTarefa(tarefa){
+  dados = carregarTarefas();
   const novaTarefa = {
     id: Date.now(),
-    titulo: titulo,
+    tarefa: tarefa,
     concluida: false
-  };
-
-  tarefas.push(novaTarefa);
-  salvarTarefas(tarefas);
-  renderizarTarefas(tarefas);
+  }
+  dados.push(novaTarefa);
+  salvarTarefas(dados);
+  renderizarTarefas(dados);
 }
+
+function renderizarTarefas(tarefas){
+  const lista = document.getElementById("lista-tarefa");
+  lista.innerHTML = "";
+
+  tarefas.forEach((data, chave) =>{
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <label>
+        <input 
+          type="checkbox" 
+          ${data.concluida ? "checked" : ""}
+          onchange="concluirTarefa(${data.id})"
+        />
+        <span> 
+          ${data.tarefa}
+        </span>
+        <button onclick="removerTarefa(${data.id})">Excluir</button>
+      </label>
+    `;
+
+    lista.appendChild(li);
+  });
+}
+
 function removerTarefa(id) {
   tarefas = tarefas.filter(tarefa => tarefa.id !== id);
   salvarTarefas(tarefas);
@@ -41,53 +66,4 @@ function concluirTarefa(id) {
 
   salvarTarefas(tarefas);
   renderizarTarefas(tarefas);
-}
-
-function renderizarTarefas(){
-  const lista = document.getElementById("lista-tarefas");
-  lista.innerHTML = ""; // limpa antes de renderizar
-
-  tarefas.forEach(tarefa => {
-    const li = document.createElement("li");
-    li.classList.add("tarefa");
-
-    if (tarefa.concluida) {
-      li.classList.add("concluida");
-    }
-
-    li.innerHTML = `
-      <label>
-        <input 
-          type="checkbox" 
-          ${tarefa.concluida ? "checked" : ""}
-          onchange="concluirTarefa(${tarefa.id})"
-        />
-        <span 
-        ${tarefa.concluida ? "class='concluida'" : ""}
-        >${tarefa.titulo}</span>
-      </label>
-
-      <button onclick="removerTarefa(${tarefa.id})">Excluir</button>
-    `;
-
-    lista.appendChild(li);
-  });
-    
-}
-function verificacaoTarefa(tarefa){
-  if(tarefa==''){
-    MensagemErro('Tarefa em branco, coloque um nome para a tarefa')
-    return false
-  }
-  tarefas = carregarTarefas()
-  if(tarefas.filter(tarefas => tarefas.titulo == tarefa).length > 0){
-    MensagemErro('Tarefa já existe, escolha outro nome!')
-    return false;
-  }
-  MensagemErro('')
-  return true
-}
-
-function MensagemErro(mensagem){
-  document.getElementById('mensagem').innerText = mensagem;
 }

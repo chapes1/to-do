@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Lista de tarefas</title>
+	<link rel="stylesheet" href="style.css">
+	<title>Lista de tarefas</title>
 </head>
 <body>
-    <div>
-        <h1>Lista de tarefas</h1>
-        <form id="formulario">
-            <label for="">Adicionar tarefa</label>
-            <input type="text" plcaholder="Titulo" id="titulo">
-            <span id="mensagem" class="erro"></span>
-            <button type="submit">Adicionar</button>
-        </form>
-        <ul id="lista-tarefas"></ul>
-    </div>
+    <div class="container">
+		<div class="status-container">
+			<div class="detalhes">
+				<h1>Lista de tarefas</h1>
+				<p>Continue assim!</p>
+				<div id="barraProgresso">
+					<div id="progresso"></div>
+				</div>
+			</div>
+			<div class="status-numeros">
+				<p id="numeros">2 / 3 </p>
+			</div>
+		</div>
+		<form action="" id="formulario">
+			<input type="text"  placeholder="Escreva sua tarefa" id="tarefa">
+			<button type="submit">+</button>
+		</form>
+
+		<ul id="lista-tarefa"></ul>
+	</div>
+	<script src="index.js"></script>
 </body>
-<script src="index.js"></script>
 </html>
