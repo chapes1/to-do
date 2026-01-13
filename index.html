@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Lista de tarefas</title>
 </head>
 <body>
@@ -17,16 +18,20 @@
 				</div>
 			</div>
 			<div class="status-numeros">
-				<p id="numeros">2 / 3 </p>
+				<p id="numeros">0 / 0</p>
 			</div>
 		</div>
-		<form action="" id="formulario">
-			<input type="text"  placeholder="Escreva sua tarefa" id="tarefa">
-			<button type="submit">+</button>
-		</form>
 
+		<form action="" id="formulario">
+			<input type="text" required maxlength="30" placeholder="Escreva sua tarefa" id="tarefa">
+			<button type="submit" id="adicionar_tarefa">+</button>
+		</form>
+		<div class="erro">
+			<span id="erro"></span>
+		</div>
 		<ul id="lista-tarefa"></ul>
 	</div>
 	<script src="index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 </body>
 </html>
