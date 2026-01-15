@@ -1,2 +1,3 @@
-# to-do
-a to do list with html, css, js
+#Uma lista de tarefas  
+Apenas uma lista de tarefas.
+Fiz porque gostaria de testar coisas simples assim
